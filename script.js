@@ -40,7 +40,7 @@ function gameLoop() {
     y: snake[0].y + dy
   };
 
-  // wrap around
+  // wrap-around
   if (head.x < 0) head.x = canvas.width - grid;
   if (head.x >= canvas.width) head.x = 0;
   if (head.y < 0) head.y = canvas.height - grid;
@@ -71,7 +71,6 @@ function gameLoop() {
   bombs.forEach(bomb => {
     ctx.fillRect(bomb.x, bomb.y, grid - 1, grid - 1);
 
-    // bomb collision
     if (head.x === bomb.x && head.y === bomb.y) {
       gameOver("💥 You hit a bomb!");
     }
@@ -82,7 +81,6 @@ function gameLoop() {
   snake.forEach((part, index) => {
     ctx.fillRect(part.x, part.y, grid - 1, grid - 1);
 
-    // self collision
     if (index !== 0 && head.x === part.x && head.y === part.y) {
       gameOver("🐍 You hit yourself!");
     }
@@ -98,19 +96,54 @@ function gameOver(message) {
   location.reload();
 }
 
+// keyboard control
 document.addEventListener("keydown", function(e) {
   if (e.key === "ArrowLeft" && dx === 0) {
-    dx = -grid;
-    dy = 0;
+    dx = -grid; dy = 0;
   } else if (e.key === "ArrowUp" && dy === 0) {
-    dx = 0;
-    dy = -grid;
+    dx = 0; dy = -grid;
   } else if (e.key === "ArrowRight" && dx === 0) {
-    dx = grid;
-    dy = 0;
+    dx = grid; dy = 0;
   } else if (e.key === "ArrowDown" && dy === 0) {
-    dx = 0;
-    dy = grid;
+    dx = 0; dy = grid;
+  }
+});
+
+// button control
+function setDirection(dir) {
+  if (dir === "left" && dx === 0) {
+    dx = -grid; dy = 0;
+  } else if (dir === "up" && dy === 0) {
+    dx = 0; dy = -grid;
+  } else if (dir === "right" && dx === 0) {
+    dx = grid; dy = 0;
+  } else if (dir === "down" && dy === 0) {
+    dx = 0; dy = grid;
+  }
+}
+
+// swipe control
+let startX = 0;
+let startY = 0;
+
+canvas.addEventListener("touchstart", e => {
+  startX = e.touches[0].clientX;
+  startY = e.touches[0].clientY;
+});
+
+canvas.addEventListener("touchmove", e => {
+  let endX = e.touches[0].clientX;
+  let endY = e.touches[0].clientY;
+
+  let dxSwipe = endX - startX;
+  let dySwipe = endY - startY;
+
+  if (Math.abs(dxSwipe) > Math.abs(dySwipe)) {
+    if (dxSwipe > 0) setDirection("right");
+    else setDirection("left");
+  } else {
+    if (dySwipe > 0) setDirection("down");
+    else setDirection("up");
   }
 });
 
