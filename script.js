@@ -34,7 +34,6 @@ function gameLoop() {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // move snake
   let head = {
     x: snake[0].x + dx,
     y: snake[0].y + dy
@@ -57,7 +56,6 @@ function gameLoop() {
 
     // add bomb
     bombs.push(randomPosition());
-
   } else {
     snake.pop();
   }
@@ -97,7 +95,7 @@ function gameOver(message) {
 }
 
 // keyboard control
-document.addEventListener("keydown", function(e) {
+document.addEventListener("keydown", e => {
   if (e.key === "ArrowLeft" && dx === 0) {
     dx = -grid; dy = 0;
   } else if (e.key === "ArrowUp" && dy === 0) {
@@ -122,16 +120,19 @@ function setDirection(dir) {
   }
 }
 
-// swipe control
+// swipe control (FIXED)
 let startX = 0;
 let startY = 0;
 
 canvas.addEventListener("touchstart", e => {
+  e.preventDefault();
   startX = e.touches[0].clientX;
   startY = e.touches[0].clientY;
-});
+}, { passive: false });
 
 canvas.addEventListener("touchmove", e => {
+  e.preventDefault();
+
   let endX = e.touches[0].clientX;
   let endY = e.touches[0].clientY;
 
@@ -145,6 +146,6 @@ canvas.addEventListener("touchmove", e => {
     if (dySwipe > 0) setDirection("down");
     else setDirection("up");
   }
-});
+}, { passive: false });
 
 requestAnimationFrame(gameLoop);
