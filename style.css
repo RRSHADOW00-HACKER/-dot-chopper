@@ -26,3 +26,29 @@ canvas {
   font-size: 14px;
   color: gray;
 }
+
+/* Mobile Controls */
+.mobile-controls {
+  margin-top: 15px;
+}
+
+.mobile-controls button {
+  font-size: 20px;
+  padding: 10px 15px;
+  margin: 5px;
+  background: #222;
+  color: white;
+  border: 1px solid white;
+  border-radius: 8px;
+}
+
+.mobile-controls button:active {
+  background: orange;
+}
+
+/* Hide on bigger screens */
+@media (min-width: 768px) {
+  .mobile-controls {
+    display: none;
+  }
+}
