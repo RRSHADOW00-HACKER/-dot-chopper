@@ -3,6 +3,10 @@ body {
   color: white;
   text-align: center;
   font-family: Arial, sans-serif;
+
+  /* Prevent page scroll */
+  overflow: hidden;
+  touch-action: none;
 }
 
 .game-container {
@@ -34,19 +38,19 @@ canvas {
 
 .mobile-controls button {
   font-size: 20px;
-  padding: 10px 15px;
-  margin: 5px;
+  padding: 12px 18px;
+  margin: 6px;
   background: #222;
   color: white;
   border: 1px solid white;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
 .mobile-controls button:active {
   background: orange;
 }
 
-/* Hide on bigger screens */
+/* Hide controls on desktop */
 @media (min-width: 768px) {
   .mobile-controls {
     display: none;
