@@ -18,8 +18,19 @@
     <canvas id="game" width="400" height="400"></canvas>
 
     <p class="controls">
-      Use ⬅️⬆️➡️⬇️ to move
+      Use ⬅️⬆️➡️⬇️ or touch controls
     </p>
+
+    <!-- Mobile Controls -->
+    <div class="mobile-controls">
+      <button onclick="setDirection('up')">⬆️</button>
+      <div>
+        <button onclick="setDirection('left')">⬅️</button>
+        <button onclick="setDirection('down')">⬇️</button>
+        <button onclick="setDirection('right')">➡️</button>
+      </div>
+    </div>
+
   </div>
 
   <script src="script.js"></script>
